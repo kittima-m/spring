@@ -9,7 +9,7 @@ import java.io.IOException;
 @ControllerAdvice
 public class GlobalExceptionController {
 
-    @ExceptionHandler({NullPointerException.class, IOException.class, ArrayIndexOutOfBoundsException.class})
+    @ExceptionHandler({IOException.class, ArrayIndexOutOfBoundsException.class})
     public ModelAndView exceptionHandler(Exception exception){
         ModelAndView errorPage = new ModelAndView();
         errorPage.setViewName("error");

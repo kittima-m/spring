@@ -18,29 +18,22 @@ public class WebSecurityConfig {
     @Bean
     SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
 
-        http.csrf(CsrfConfigurer::disable);
+        http.csrf(httpSecurityCsrfConfigurer -> httpSecurityCsrfConfigurer.ignoringRequestMatchers("/saveMsg"));
         http.authorizeHttpRequests((requests) -> {
             requests.requestMatchers("/dashboard").authenticated();
-
             requests.requestMatchers("/login").permitAll();
+            requests.requestMatchers("/logout").permitAll();
             requests.requestMatchers("/","/home").permitAll();
             requests.requestMatchers("/courses").permitAll();
             requests.requestMatchers("/about").permitAll();
-            requests.requestMatchers("/saveMsg").permitAll();
             requests.requestMatchers("/contact").permitAll();
             requests.requestMatchers("/holidays/**").permitAll();
             requests.requestMatchers("/assets/**").permitAll();
             requests.requestMatchers("/error").permitAll();
         });
-
         http.formLogin((formLogin) -> formLogin.loginPage("/login")
                 .defaultSuccessUrl("/dashboard")
                 .failureUrl("/login?error=true")
-                .permitAll()
-        );
-
-        http.logout((logout) -> logout.logoutSuccessUrl("/login?logout=true")
-                .invalidateHttpSession(true)
                 .permitAll()
         );
 
