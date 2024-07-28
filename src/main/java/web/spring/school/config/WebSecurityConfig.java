@@ -30,6 +30,7 @@ public class WebSecurityConfig {
             requests.requestMatchers("/contact").permitAll();
             requests.requestMatchers("/holidays/**").permitAll();
             requests.requestMatchers("/assets/**").permitAll();
+            requests.requestMatchers("/error").permitAll();
         });
 
         http.formLogin((formLogin) -> formLogin.loginPage("/login")
